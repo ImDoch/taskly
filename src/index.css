@@ -26,7 +26,7 @@ body {
 }
 
 .modal {
-  background: white;
+  background: #333;
   padding: 2rem;
   border-radius: 0.5rem;
   max-width: 500px;
@@ -35,10 +35,25 @@ body {
   z-index: 30;
 }
 
+.status {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.green-status {
+  background-color: green;
+}
+
+.red-status {
+  background-color: red;
+}
+
 header {
   width: 50%;
   margin: 0 auto;
   padding: 1rem;
+  position: relative;
   display: flex;
   justify-content: space-between;
 
@@ -96,7 +111,76 @@ header {
   width: 40rem;
   display: flex;
   flex-direction: column;
-  
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 
-  
+  input {
+    width: 80%;
+  }
+  textarea {
+    width: 80%;
+  }
+
+  div {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      padding: 0.8rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.filters-container {
+  width: 15rem;
+  padding: 1rem;
+  position: absolute;
+  top: 55px;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  border-radius: 0.6rem;
+  background-color: #000;
+  z-index: 10;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    list-style: none;
+  }
+
+  li {
+    padding: 0.4rem;
+    text-transform: capitalize;
+    text-align: center;
+    border-radius: 0.8rem;
+    background-color: #242424;
+    cursor: pointer;
+  }
+}
+
+.list-container {
+  width: 50%;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  .list-card {
+    width: 80%;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1rem;
+    background-color: #333;
+    cursor: pointer;
+
+  }
 }

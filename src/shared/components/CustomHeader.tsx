@@ -2,16 +2,23 @@ import { BsFilter } from 'react-icons/bs';
 import { MdAdd } from 'react-icons/md';
 interface Props {
   title: string;
+  children?: React.ReactNode;
 
-  onCreateTasklyModal: () => void;
+  onAddClicked: () => void;
+  onFilterClicked: () => void;
 }
 
-export const CustomHeader = ({ title, onCreateTasklyModal }: Props) => {
+export const CustomHeader = ({
+  title,
+  children,
+  onAddClicked: onCreateTasklyModal,
+  onFilterClicked,
+}: Props) => {
   return (
     <header>
       <h1>{title}</h1>
       <div>
-        <button className="filter">
+        <button onClick={onFilterClicked} className="filter">
           <BsFilter />
           Filter
         </button>
@@ -19,6 +26,7 @@ export const CustomHeader = ({ title, onCreateTasklyModal }: Props) => {
           <MdAdd className="icon" />
         </button>
       </div>
+      {children && <>{children}</>}
     </header>
   );
 };
