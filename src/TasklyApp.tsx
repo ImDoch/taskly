@@ -2,10 +2,12 @@ import { CustomHeader } from './shared/components/CustomHeader';
 import { Modal } from './shared/components/Modal';
 import { TaskForm } from './taskly/components/TaskForm';
 import { TaskList } from './taskly/components/TaskList';
+import { useTask } from './taskly/hooks/useTask';
 import { useTasklyUI } from './taskly/hooks/useTasklyUI';
 
 export const TasklyApp = () => {
   const { modal, filterIsOpen, handleModal, handleFilter } = useTasklyUI();
+  const { tasks, handleCreateTask } = useTask();
   return (
     <>
       <CustomHeader
@@ -14,7 +16,7 @@ export const TasklyApp = () => {
         onFilterClicked={handleFilter}
       />
 
-      <TaskList />
+      <TaskList tasks={tasks} />
 
       <Modal
         componentToShow="create"
@@ -24,7 +26,8 @@ export const TasklyApp = () => {
         <TaskForm
           formTitle="Create Taskly"
           buttonName="Create"
-          onCloseClicked={handleModal}
+          onCloseClick={handleModal}
+          onCreateClick={handleCreateTask}
         />
       </Modal>
 
