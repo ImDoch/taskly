@@ -42,7 +42,7 @@ export const CustomHeader = ({
       </div>
 
       {isOpen && (
-        <ul className="p-2 absolute right-16 top-16 text-center rounded-2xl border border-gray-300 bg-gray-100">
+        <ul className="p-2 absolute right-16 top-16 text-center rounded-2xl border border-gray-300 bg-gray-100 z-10">
           <li className="status-filter">All</li>
           <li className="status-filter">Completed</li>
           <li className="status-filter">Pending</li>

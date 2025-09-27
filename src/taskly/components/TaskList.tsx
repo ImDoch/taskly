@@ -2,7 +2,7 @@ export const TaskList = () => {
   return (
     <main>
       <section className="p-6 grid grid-cols-[repeat(auto-fill,288px)] justify-center gap-4">
-        <article className="p-6 relative flex flex-col justify-between rounded-3xl aspect-square bg-gray-200">
+        <article className="p-6 relative flex flex-col justify-between rounded-3xl aspect-square bg-gray-200 cursor-pointer hover:bg-gray-300">
           <div>
             <h2>Task Title</h2>
             <p>Task Description...</p>
