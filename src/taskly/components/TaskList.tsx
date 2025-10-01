@@ -1,15 +1,39 @@
+import { useState } from 'react';
 import type { Task } from '../interfaces/Task';
+import type { FilterTasks } from '../hooks/useTask';
 
 interface Props {
   tasks: Task[];
+  filter: FilterTasks;
+  onDoneClick: (task: Task) => void;
 }
 
-export const TaskList = ({ tasks }: Props) => {
-  if (!tasks.length)
+export const TaskList = ({ tasks, filter, onDoneClick }: Props) => {
+  const [completed, setCompleted] = useState(false);
+
+  if (filter === 'all' && !tasks.length)
     return (
-      <main>
+      <main className="h-[calc(100dvh-4rem)] display flex justify-center items-center">
         <section>
           <p>Let's start to track your tasks</p>
+        </section>
+      </main>
+    );
+
+  if (filter === 'completed' && !tasks.length)
+    return (
+      <main className="h-[calc(100dvh-4rem)] display flex justify-center items-center">
+        <section>
+          <p>You don't have completed tasks yet</p>
+        </section>
+      </main>
+    );
+
+  if (filter === 'pending' && !tasks.length)
+    return (
+      <main className="h-[calc(100dvh-4rem)] display flex justify-center items-center">
+        <section>
+          <p>You don't have pending tasks yet</p>
         </section>
       </main>
     );
@@ -32,9 +56,12 @@ export const TaskList = ({ tasks }: Props) => {
                   Done
                 </label>
                 <input
+                  onClick={() => onDoneClick(task)}
                   id="done"
                   type="checkbox"
-                  className="w-3 h-3 translate-y-[1px]"
+                  className="w-3 h-3 translate-y-[2px]"
+                  checked={completed}
+                  onChange={(e) => setCompleted(e.target.checked)}
                 />
               </div>
               <div

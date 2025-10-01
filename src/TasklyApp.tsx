@@ -7,16 +7,28 @@ import { useTasklyUI } from './taskly/hooks/useTasklyUI';
 
 export const TasklyApp = () => {
   const { modal, filterIsOpen, handleModal, handleFilter } = useTasklyUI();
-  const { tasks, handleCreateTask } = useTask();
+  const {
+    filter,
+    filteredTasks,
+    handleCreateTask,
+    handleCompletedTask,
+    handleFilterChange,
+  } = useTask();
   return (
     <>
       <CustomHeader
         isOpen={filterIsOpen}
         onAddClicked={handleModal}
         onFilterClicked={handleFilter}
+        onFilterItemClick={handleFilterChange}
+        filter={filter}
       />
 
-      <TaskList tasks={tasks} />
+      <TaskList
+        filter={filter}
+        tasks={filteredTasks}
+        onDoneClick={handleCompletedTask}
+      />
 
       <Modal
         componentToShow="create"
