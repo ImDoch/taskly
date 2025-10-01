@@ -6,6 +6,7 @@ export type FilterTasks = 'all' | 'completed' | 'pending';
 export const useTask = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<FilterTasks>('all');
+  const [seletedTask, setSeletedTask] = useState<Task | null>(null);
 
   const handleCreateTask = (title: string, description: string) => {
     if (!title.length || !description.length) return;
@@ -40,6 +41,10 @@ export const useTask = () => {
     setFilter(newFilter);
   };
 
+  const handleSeletedTask = (seletedTask: Task) => {
+    setSeletedTask(seletedTask);
+  };
+
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'completed') return task.completed;
     if (filter === 'pending') return !task.completed;
@@ -49,9 +54,11 @@ export const useTask = () => {
   return {
     tasks,
     filter,
+    seletedTask,
     filteredTasks,
     handleCreateTask,
     handleCompletedTask,
     handleFilterChange,
+    handleSeletedTask,
   };
 };

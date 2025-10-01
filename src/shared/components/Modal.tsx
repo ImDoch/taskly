@@ -25,7 +25,7 @@ export const Modal = ({
     >
       <div
         onClick={(event) => event.stopPropagation()}
-        className="w-4/5 max-w-md min-w-2xs bg-gray-100 p-6 rounded-3xl shadow-lg"
+        className="w-4/5 max-w-md min-w-2xs p-6 rounded-3xl bg-gray-100 shadow-lg"
       >
         {children}
       </div>

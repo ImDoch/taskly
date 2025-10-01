@@ -1,14 +1,23 @@
 import { useState } from 'react';
 import type { Task } from '../interfaces/Task';
 import type { FilterTasks } from '../hooks/useTask';
+import type { ModalName } from '../hooks/useTasklyUI';
 
 interface Props {
   tasks: Task[];
   filter: FilterTasks;
   onDoneClick: (task: Task) => void;
+  onCardClick: (modalName: ModalName) => void;
+  onTaskClick: (task: Task) => void;
 }
 
-export const TaskList = ({ tasks, filter, onDoneClick }: Props) => {
+export const TaskList = ({
+  tasks,
+  filter,
+  onDoneClick,
+  onCardClick,
+  onTaskClick,
+}: Props) => {
   const [completed, setCompleted] = useState(false);
 
   if (filter === 'all' && !tasks.length)
@@ -44,6 +53,10 @@ export const TaskList = ({ tasks, filter, onDoneClick }: Props) => {
         {tasks.map((task) => {
           return (
             <article
+              onClick={() => {
+                onCardClick('details');
+                onTaskClick(task);
+              }}
               key={task.title}
               className="p-6 relative flex flex-col justify-between rounded-3xl aspect-[2/1] bg-gray-200 cursor-pointer hover:bg-gray-300"
             >
@@ -51,15 +64,22 @@ export const TaskList = ({ tasks, filter, onDoneClick }: Props) => {
                 <h2 className="mb-2">{task.title}</h2>
                 <p>{task.description}</p>
               </div>
-              <div className="flex justify-end items-center gap-1">
-                <label htmlFor="done" className="leading-none">
+              <div className="w-16 p-2 flex justify-center items-center self-end gap-1 rounded-md hover:bg-gray-400">
+                <label
+                  onClick={(event) => event.stopPropagation()}
+                  htmlFor="done"
+                  className="leading-none cursor-pointer"
+                >
                   Done
                 </label>
                 <input
-                  onClick={() => onDoneClick(task)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onDoneClick(task);
+                  }}
                   id="done"
                   type="checkbox"
-                  className="w-3 h-3 translate-y-[2px]"
+                  className="w-3 h-3 translate-y-[2px] cursor-pointer"
                   checked={completed}
                   onChange={(e) => setCompleted(e.target.checked)}
                 />
