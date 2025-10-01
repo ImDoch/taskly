@@ -2,7 +2,10 @@ import { XMarkIcon } from '@heroicons/react/16/solid';
 import type { ModalName } from '../hooks/useTasklyUI';
 import { useState } from 'react';
 
+type Mode = 'create' | 'edit';
+
 interface Props {
+  mode: Mode;
   formTitle: string;
   buttonName: string;
   taskTitle?: string;
@@ -12,6 +15,7 @@ interface Props {
 }
 
 export const TaskForm = ({
+  mode,
   formTitle,
   buttonName,
   taskTitle,
@@ -19,8 +23,8 @@ export const TaskForm = ({
   onCloseClick,
   onCreateClick,
 }: Props) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState(taskTitle ?? '');
+  const [description, setDescription] = useState(taskDescription ?? '');
 
   return (
     <div className="relative">
@@ -34,7 +38,7 @@ export const TaskForm = ({
             type="text"
             placeholder="Task Title"
             onChange={(event) => setTitle(event.target.value)}
-            value={taskTitle?.length ? taskTitle : title}
+            value={title}
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -44,13 +48,15 @@ export const TaskForm = ({
             id="description"
             placeholder="Task Description"
             onChange={(event) => setDescription(event.target.value)}
-            value={taskDescription?.length ? taskDescription : description}
+            value={description}
           ></textarea>
         </div>
         <button
           onClick={(event) => {
             event.preventDefault();
-            onCreateClick(title, description);
+            if (mode === 'create') {
+              onCreateClick(title, description);
+            }
             onCloseClick('none');
           }}
           className="px-3 py-2 self-end rounded-xl border border-gray-300 cursor-pointer hover:bg-gray-200"

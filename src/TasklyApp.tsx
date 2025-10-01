@@ -24,6 +24,7 @@ export const TasklyApp = () => {
         onOVerlayClicked={handleModal}
       >
         <TaskForm
+          mode="create"
           formTitle="Create Taskly"
           buttonName="Create"
           onCloseClick={handleModal}

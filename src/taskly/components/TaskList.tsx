@@ -5,6 +5,15 @@ interface Props {
 }
 
 export const TaskList = ({ tasks }: Props) => {
+  if (!tasks.length)
+    return (
+      <main>
+        <section>
+          <p>Let's start to track your tasks</p>
+        </section>
+      </main>
+    );
+
   return (
     <main>
       <section className="p-6 grid grid-cols-[repeat(auto-fill,288px)] justify-center gap-4">
@@ -12,10 +21,10 @@ export const TaskList = ({ tasks }: Props) => {
           return (
             <article
               key={task.title}
-              className="p-6 relative flex flex-col justify-between rounded-3xl aspect-square bg-gray-200 cursor-pointer hover:bg-gray-300"
+              className="p-6 relative flex flex-col justify-between rounded-3xl aspect-[2/1] bg-gray-200 cursor-pointer hover:bg-gray-300"
             >
-              <div>
-                <h2>{task.title}</h2>
+              <div className="line-clamp-2">
+                <h2 className="mb-2">{task.title}</h2>
                 <p>{task.description}</p>
               </div>
               <div className="flex justify-end items-center gap-1">
