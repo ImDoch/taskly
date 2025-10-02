@@ -1,6 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/16/solid';
 import type { ModalName } from '../hooks/useTasklyUI';
 import { useState } from 'react';
+import type { Task } from '../interfaces/Task';
 
 type Mode = 'create' | 'edit';
 
@@ -8,23 +9,27 @@ interface Props {
   mode: Mode;
   formTitle: string;
   buttonName: string;
-  taskTitle?: string;
-  taskDescription?: string;
+  task?: Task;
   onCloseClick: (modalName: ModalName) => void;
   onCreateClick: (title: string, description: string) => void;
+  onEditClick: (
+    taskToEdit: Task,
+    newTitle: string,
+    newDescription: string
+  ) => void;
 }
 
 export const TaskForm = ({
   mode,
   formTitle,
   buttonName,
-  taskTitle,
-  taskDescription,
+  task,
   onCloseClick,
   onCreateClick,
+  onEditClick,
 }: Props) => {
-  const [title, setTitle] = useState(taskTitle ?? '');
-  const [description, setDescription] = useState(taskDescription ?? '');
+  const [title, setTitle] = useState(task?.title ?? '');
+  const [description, setDescription] = useState(task?.description ?? '');
 
   return (
     <div className="relative">
@@ -56,6 +61,9 @@ export const TaskForm = ({
             event.preventDefault();
             if (mode === 'create') {
               onCreateClick(title, description);
+            }
+            if (mode === 'edit' && task) {
+              onEditClick(task, title, description);
             }
             onCloseClick('none');
           }}

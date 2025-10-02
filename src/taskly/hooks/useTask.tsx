@@ -45,6 +45,28 @@ export const useTask = () => {
     setSeletedTask(seletedTask);
   };
 
+  const handleEditTask = (
+    taskToEdit: Task,
+    newTitle: string,
+    newDescription: string
+  ) => {
+    setSeletedTask((prev) => {
+      if (!prev) return prev;
+      if (taskToEdit.title === prev?.title) {
+        return { ...prev, description: newDescription };
+      }
+      return prev;
+    });
+
+    setTasks((prev) => {
+      return prev.map((task) =>
+        task.title === taskToEdit.title
+          ? { ...task, description: newDescription }
+          : task
+      );
+    });
+  };
+
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'completed') return task.completed;
     if (filter === 'pending') return !task.completed;
@@ -60,5 +82,6 @@ export const useTask = () => {
     handleCompletedTask,
     handleFilterChange,
     handleSeletedTask,
+    handleEditTask,
   };
 };

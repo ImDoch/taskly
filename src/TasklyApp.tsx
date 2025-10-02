@@ -23,6 +23,7 @@ export const TasklyApp = () => {
     handleCompletedTask,
     handleFilterChange,
     handleSeletedTask,
+    handleEditTask,
   } = useTask();
   return (
     <>
@@ -53,6 +54,7 @@ export const TasklyApp = () => {
           buttonName="Create"
           onCloseClick={handleModal}
           onCreateClick={handleCreateTask}
+          onEditClick={handleEditTask}
         />
       </Modal>
 
@@ -66,6 +68,22 @@ export const TasklyApp = () => {
           isOpen={optionsIsOpen}
           onClickModalSetter={handleModal}
           onOptionsClick={handleOptions}
+        />
+      </Modal>
+
+      <Modal
+        componentToShow="edit"
+        current={modal}
+        onOVerlayClicked={handleModal}
+      >
+        <TaskForm
+          formTitle="Edit Taskly"
+          buttonName="Edit"
+          mode="edit"
+          onCloseClick={handleModal}
+          onCreateClick={handleCreateTask}
+          task={seletedTask ?? undefined}
+          onEditClick={handleEditTask}
         />
       </Modal>
     </>
